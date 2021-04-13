@@ -30,9 +30,9 @@ def get_light(time):
 
 def signals():
     from gpiozero import LED
-    red = LED(16)
-    green = LED(20)
-    blue = LED(21)
+    red = LED(17)
+    green = LED(27)
+    blue = LED(22)
     current = red
     import time
     while True:
