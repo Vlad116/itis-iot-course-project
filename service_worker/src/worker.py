@@ -84,6 +84,11 @@ def create_app():
 
     @app.route('/get-light', methods=['POST'])
     def get_light_value():
+        """
+        Получение света
+        ---
+        :return:
+        """
         import datetime
         return json.dumps([get_light(datetime.datetime.now())])
 
