@@ -13,7 +13,7 @@ publisher = mqtt_client.Client('1')
 
 
 def publish():
-    val = requests.post("http://localhost:8000/get-light")
+    val = requests.post("http://192.168.1.10:8000/get-light")
     global sensors_per
     sensors_per = val
     print(val)
