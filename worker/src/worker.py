@@ -35,10 +35,10 @@ def create_app():
         """
         return "", HTTPStatus.OK
 
-    @app.route('/', methods=['POST'])
-    def get_humidity():
+    @app.route('/get-light', methods=['POST'])
+    def get_light_value():
         import datetime
-        return json.dumps([get_light(datetime.datetime.now()), get_humidity()])
+        return json.dumps([get_light(datetime.datetime.now())])
 
     return app
 
