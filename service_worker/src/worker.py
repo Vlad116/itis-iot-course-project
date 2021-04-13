@@ -5,7 +5,7 @@ from flask import Flask, jsonify
 from flask_swagger import swagger
 from flask_swagger_ui import get_swaggerui_blueprint
 
-from utils import get_light
+from utils import get_light, signals
 
 
 def create_app():
@@ -45,5 +45,11 @@ def create_app():
 
 app = create_app()
 
-if __name__ == "__main__":
+def run():
+    import threading
+    thread1 = threading.Thread(target=signals)
+    thread1.start()
     app.run(host="0.0.0.0", port=8080, debug=True, threaded=True)
+
+if __name__ == "__main__":
+    run()
