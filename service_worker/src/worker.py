@@ -37,12 +37,12 @@ def signals():
     import time
     while True:
         val = read_light()
-        if val > 20:
+        if 80 < val < 300:
             if current is not blue:
                 current.off()
                 current = blue
                 current.on()
-        elif val > 60:
+        elif val > 300:
             if current is not green:
                 current.off()
                 current = green

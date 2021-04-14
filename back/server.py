@@ -23,8 +23,6 @@ topicResponse = 'v1/devices/me/rpc/response/'
 # password = 'public'
 ACCESS_TOKEN = 'Hj0payDBaIzqWowpoj0U'
 
-ACCESS_TOKEN_HUMIDITY = "7G4GYyktZn79RM5mvb6I"
-
 publisher = mqtt_client.Client('5')
 publisher.connect(broker, port)
 
@@ -52,6 +50,7 @@ light_publisher = connect_mqtt('0', brokerT)
 light_publisher.loop_start()
 
 sensors_per = []
+data_list = []
 
 
 def on_message(client, userdata, msg):
@@ -61,6 +60,7 @@ def on_message(client, userdata, msg):
     global sensors_per
     sensors_per = data
     print(sensors_per)
+    data_list.append(sensors_per)
     # print('Incoming message topic: ' + msg.topic)
 
     # собственно если у нас сообщение начинается с sensor-1, мы посылаем ему сообщение (просто 10)
@@ -97,14 +97,14 @@ def publish(client):
         time.sleep(30)
 
 
-
 def run():
     import threading
     thread1 = threading.Thread(target=publish, args=[light_publisher])
     thread1.start()
-    client = connect_mqtt('2', broker)
+    client = connect_mqtt('3', broker)
     subscribe(client)
-    client.loop_forever()
+    thread4 = threading.Thread(target=client.loop_forever)
+    thread4.start()
 
 
 def exec():
@@ -113,3 +113,28 @@ def exec():
 
 if __name__ == "__main__":
     exec()
+    import pygame
+
+    pygame.init()
+    myfont = pygame.font.SysFont('Comic Sans MS', 30)
+    win = pygame.display.set_mode((500, 500))
+    f1 = pygame.font.Font(None, 36)
+    text = f1.render('Статус', True, (180, 0, 0))
+    good = f1.render('Соответствие Госту', True, (180, 0, 0))
+    average = f1.render('Средний уровень освещенности', True, (0, 0, 180))
+    bad = f1.render('Место плохо освещено', True, (180, 0, 0))
+    win.blit(text, (20, 0))
+    while True:
+        if data_list:
+            print(data_list)
+            value = data_list[-1][-1]['value']
+            print(value)
+            if value > 300:
+                a = f1.render('Соответствие Госту', True, (0, 180, 0))
+            if 80 < value < 300:
+                a = f1.render('Средний уровень освещенности', True, (0, 0, 180))
+            else:
+                a = f1.render('Место плохо освещено', True, (180, 0, 0))
+                # requests.post('http://localhost:8091/api/send-message', data={"phone_number": "+79872748258", "text": "Эмиль, привет"}).text
+            win.blit(a, (150, len(data_list) * 15))
+        pygame.display.update()

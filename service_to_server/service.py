@@ -30,10 +30,10 @@ def publish_loop(client):
 def alert_loop():
     while True:
         val = publish()
-        if val[0].get('value') < 10:
+        if val[0].get('value') < 300:
             publisher.publish("vmk/team_6/r", json.dumps([{"action": 'alert'}]))
             publisher.publish("vmk/team_6/r", json.dumps(publish()))
-            time.sleep(10)
+            time.sleep(5)
         time.sleep(2)
 
 
