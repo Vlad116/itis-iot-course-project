@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.js": "javascriptreact"
+  },
+  "files.autoGuessEncoding": true
+}
