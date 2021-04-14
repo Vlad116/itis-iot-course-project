@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: darkslateblue;
+}
+
+.nav-item {
+    text-decoration: none;
+    font-size: medium;
+    color: cornflowerblue;
+}

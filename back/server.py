@@ -127,6 +127,7 @@ if __name__ == "__main__":
     win.blit(text, (20, 0))
     is_send = False
     while True:
+        pygame.event.get()
         if data_list:
             print(data_list)
             value = 300
@@ -142,6 +143,8 @@ if __name__ == "__main__":
             else:
                 a = f1.render('Место плохо освещено', True, (180, 0, 0))
                 if not is_send:
+                    requests.get('https://sms.ru/sms/send?api_id=c34f67e7-bde5-3454-75ea-f2a1dccbdc64&to=79872921954&msg=Плохое '
+                        'освещение')
                     is_send = True
             win.blit(a, (150, len(data_list) * 15))
         pygame.display.update()
