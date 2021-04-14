@@ -17,7 +17,7 @@ After replacing all variables:
 [![License: AGPL v3][uri_license_image]][uri_license]
 [![gitmoji-changelog](https://img.shields.io/badge/Changelog-gitmoji-blue.svg)](https://github.com/frinyvonnick/gitmoji-changelog)
 
-# **__app_name__**
+# **__itis-iot-course-project__**
 
 > :alembic: __app_description__
 
