@@ -1,6 +1,7 @@
 import time
 import json
 
+import requests
 from paho.mqtt import client as mqtt_client
 
 broker = 'broker.hivemq.com'
@@ -124,6 +125,7 @@ if __name__ == "__main__":
     average = f1.render('Средний уровень освещенности', True, (0, 0, 180))
     bad = f1.render('Место плохо освещено', True, (180, 0, 0))
     win.blit(text, (20, 0))
+    is_send = False
     while True:
         if data_list:
             print(data_list)
@@ -133,10 +135,13 @@ if __name__ == "__main__":
             print(value)
             if value > 300:
                 a = f1.render('Соответствие Госту', True, (0, 180, 0))
+                is_send = False
             elif 80 < value < 300:
                 a = f1.render('Средний уровень освещенности', True, (0, 0, 180))
+                is_send = False
             else:
                 a = f1.render('Место плохо освещено', True, (180, 0, 0))
-                # requests.post('http://localhost:8091/api/send-message', data={"phone_number": "+79872748258", "text": "Эмиль, привет"}).text
+                if not is_send:
+                    is_send = True
             win.blit(a, (150, len(data_list) * 15))
         pygame.display.update()
