@@ -127,11 +127,13 @@ if __name__ == "__main__":
     while True:
         if data_list:
             print(data_list)
-            value = data_list[-1][-1]['value']
+            value = 300
+            if not data_list[-1][-1].get('action'):
+                value = data_list[-1][-1]['value']
             print(value)
             if value > 300:
                 a = f1.render('Соответствие Госту', True, (0, 180, 0))
-            if 80 < value < 300:
+            elif 80 < value < 300:
                 a = f1.render('Средний уровень освещенности', True, (0, 0, 180))
             else:
                 a = f1.render('Место плохо освещено', True, (180, 0, 0))
